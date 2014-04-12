@@ -1,6 +1,7 @@
 require "player"
 
 GRID_SIZE = 16
+keys = {}
 
 p = Player.new()
 
@@ -31,7 +32,13 @@ function love.update(dt)
 end
 
 function love.keypressed(key, isrepeat)
+	keys[key] = true
+	if key == "left" and p.direction ~= "right" then p.direction = key end
+	if key == "right" and p.direction ~= "left" then p.direction = key end
+	if key == "up" and p.direction ~= "down" then p.direction = key end
+	if key == "down" and p.direction ~= "up" then p.direction = key end
 end
 
 function love.keyreleased(key)
+	keys[key] = false
 end

@@ -1,6 +1,8 @@
 require "player"
 
 GRID_SIZE = 16
+WIDTH = love.graphics.getWidth()
+HEIGHT = love.graphics.getHeight()
 keys = {}
 
 p = Player.new()
@@ -11,13 +13,11 @@ end
 
 function drawGrid()
 	love.graphics.setColor(238, 232, 213, 255);
-	local w = love.graphics.getWidth()
-	local h = love.graphics.getHeight()
-	for x=GRID_SIZE, w, GRID_SIZE do
-		love.graphics.line(x, 0, x, h)
+	for x=GRID_SIZE, WIDTH, GRID_SIZE do
+		love.graphics.line(x, 0, x, HEIGHT)
 	end
-	for y=GRID_SIZE, h, GRID_SIZE do
-		love.graphics.line(0, y, w, y)
+	for y=GRID_SIZE, HEIGHT, GRID_SIZE do
+		love.graphics.line(0, y, WIDTH, y)
 	end
 end
 

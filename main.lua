@@ -54,7 +54,9 @@ function checkCollisions()
 	for i, candy in ipairs(candys) do
 		if p.points[1][1] == candy.x and p.points[1][2] == candy.y then
 			table.remove(candys, i)
-			table.insert(candys, Candy.new({math.random(WIDTH_GRID), math.random(HEIGHT_GRID)}))
+			local x = math.random(WIDTH_GRID)-1
+			local y = math.random(HEIGHT_GRID)-1
+			table.insert(candys, Candy.new({x, y}))
 			Player.grow(p, candy.worth)
 			return true
 		end

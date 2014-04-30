@@ -1,9 +1,11 @@
 require "player"
+require "candy"
 
 GRID_SIZE = 16
 WIDTH = love.graphics.getWidth()
 HEIGHT = love.graphics.getHeight()
 keys = {}
+candys = {Candy.new({5,5})}
 
 p = Player.new()
 
@@ -22,13 +24,16 @@ function drawGrid()
 end
 
 function love.draw()
-	-- Player.draw(p, 147, 161, 161)
+	for _, candy in ipairs(candys) do
+		Candy.draw(candy)
+	end
 	Player.draw(p, 38, 139, 210)
 	drawGrid()
 end
 
 function love.update(dt)
 	Player.update(p, dt)
+	checkCollisions()
 end
 
 function love.keypressed(key, isrepeat)
@@ -41,4 +46,14 @@ end
 
 function love.keyreleased(key)
 	keys[key] = false
+end
+
+function checkCollisions()
+	for i, candy in ipairs(candys) do
+		if p.points[1][1] == candy.x and p.points[1][2] == candy.y then
+			table.remove(candys, i)
+			Player.grow(p, candy.worth)
+			return true
+		end
+	end
 end

@@ -39,3 +39,11 @@ function Player.update(player, dt)
 	player.points[1][1] = math.floor(player.x)
 	player.points[1][2] = math.floor(player.y)
 end
+
+-- Appends n items to the player
+function Player.grow(player, n)
+	point = player.points[#player.points]
+	for i = 1, n, 1 do
+		table.insert(player.points, {point[1], point[2]})
+	end
+end

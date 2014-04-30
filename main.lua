@@ -4,6 +4,8 @@ require "candy"
 GRID_SIZE = 16
 WIDTH = love.graphics.getWidth()
 HEIGHT = love.graphics.getHeight()
+WIDTH_GRID = WIDTH / GRID_SIZE
+HEIGHT_GRID = HEIGHT / GRID_SIZE
 keys = {}
 candys = {Candy.new({5,5})}
 
@@ -52,6 +54,7 @@ function checkCollisions()
 	for i, candy in ipairs(candys) do
 		if p.points[1][1] == candy.x and p.points[1][2] == candy.y then
 			table.remove(candys, i)
+			table.insert(candys, Candy.new({math.random(WIDTH_GRID), math.random(HEIGHT_GRID)}))
 			Player.grow(p, candy.worth)
 			return true
 		end

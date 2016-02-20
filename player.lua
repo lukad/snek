@@ -5,7 +5,7 @@ local Player = class('Player')
 function Player:initialize()
 	self.x = 0
 	self.y = 1
-	self.points = {{5, 1}, {4, 6}, {0, 3}}
+	self.points = {{self.x, self.y}, {self.x, self.y}, {self.x, self.y}}
 	self.speed = 10
 	self.direction = "right"
 end

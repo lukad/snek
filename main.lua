@@ -1,4 +1,4 @@
-require "player"
+local Player = require "player"
 require "candy"
 
 GRID_SIZE = 16
@@ -9,7 +9,7 @@ HEIGHT_GRID = HEIGHT / GRID_SIZE
 keys = {}
 candys = {Candy.new({5,5})}
 
-p = Player.new()
+p = Player:new()
 
 function love.load()
 	love.graphics.setBackgroundColor(253, 246, 227)
@@ -29,12 +29,12 @@ function love.draw()
 	for _, candy in ipairs(candys) do
 		Candy.draw(candy)
 	end
-	Player.draw(p, 38, 139, 210)
+	p:draw(38, 139, 210)
 	drawGrid()
 end
 
 function love.update(dt)
-	Player.update(p, dt)
+	p:update(dt)
 	checkCollisions()
 end
 
@@ -57,7 +57,7 @@ function checkCollisions()
 			local x = math.random(WIDTH_GRID)-1
 			local y = math.random(HEIGHT_GRID)-1
 			table.insert(candys, Candy.new({x, y}))
-			Player.grow(p, candy.worth)
+			p:grow(candy.worth)
 			return true
 		end
 	end

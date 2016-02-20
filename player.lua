@@ -1,49 +1,52 @@
-Player = {}
-function Player.new()
-	return {
-		x = 0,
-		y = 1,
-		points = {{5, 1}, {4, 6}, {0, 3}},
-		speed = 10,
-		direction = "right"
-	}
+local class = require 'lib.middleclass'
+
+local Player = class('Player')
+
+function Player:initialize()
+	self.x = 0
+	self.y = 1
+	self.points = {{5, 1}, {4, 6}, {0, 3}}
+	self.speed = 10
+	self.direction = "right"
 end
 
-function Player.draw(player, r, g, b)
+function Player:draw(r, g, b)
 	love.graphics.setColor(r, g, b)
-	for _, p in ipairs(player.points) do
+	for _, p in ipairs(self.points) do
 		local x = math.floor(p[1])
 		local y = math.floor(p[2])
 		love.graphics.rectangle("fill", x * GRID_SIZE, y * GRID_SIZE, GRID_SIZE, GRID_SIZE)
 	end
 end
 
-function Player.update(player, dt)
-	if player.direction == "right" then player.x = player.x + player.speed * dt end
-	if player.direction == "left" then player.x = player.x - player.speed * dt end
-	if player.direction == "up" then player.y = player.y - player.speed * dt end
-	if player.direction == "down" then player.y = player.y + player.speed * dt end
+function Player:update(dt)
+	if self.direction == "right" then self.x = self.x + self.speed * dt end
+	if self.direction == "left" then self.x = self.x - self.speed * dt end
+	if self.direction == "up" then self.y = self.y - self.speed * dt end
+	if self.direction == "down" then self.y = self.y + self.speed * dt end
 
-	if math.floor(player.x) == player.points[1][1] and math.floor(player.y) == player.points[1][2] then return end
+	if math.floor(self.x) == self.points[1][1] and math.floor(self.y) == self.points[1][2] then return end
 
-	if player.x >= WIDTH / GRID_SIZE then player.x = 0 + player.x % (WIDTH / GRID_SIZE) end
-	if player.x < 0 then player.x = WIDTH / GRID_SIZE - player.x end
-	if player.y >= HEIGHT / GRID_SIZE then player.y = 0 + player.y % (HEIGHT / GRID_SIZE) end
-	if player.y < 0 then player.y = HEIGHT / GRID_SIZE - player.y end
+	if self.x >= WIDTH / GRID_SIZE then self.x = 0 + self.x % (WIDTH / GRID_SIZE) end
+	if self.x < 0 then self.x = WIDTH / GRID_SIZE - self.x end
+	if self.y >= HEIGHT / GRID_SIZE then self.y = 0 + self.y % (HEIGHT / GRID_SIZE) end
+	if self.y < 0 then self.y = HEIGHT / GRID_SIZE - self.y end
 
-	for i = #player.points, 2, -1 do
-		player.points[i][1] = math.floor(player.points[i-1][1])
-		player.points[i][2] = math.floor(player.points[i-1][2])
+	for i = #self.points, 2, -1 do
+		self.points[i][1] = math.floor(self.points[i-1][1])
+		self.points[i][2] = math.floor(self.points[i-1][2])
 	end
 
-	player.points[1][1] = math.floor(player.x)
-	player.points[1][2] = math.floor(player.y)
+	self.points[1][1] = math.floor(self.x)
+	self.points[1][2] = math.floor(self.y)
 end
 
 -- Appends n items to the player
-function Player.grow(player, n)
-	point = player.points[#player.points]
+function Player:grow(n)
+	point = self.points[#self.points]
 	for i = 1, n, 1 do
-		table.insert(player.points, {point[1], point[2]})
+		table.insert(self.points, {point[1], point[2]})
 	end
 end
+
+return Player

@@ -1,13 +1,16 @@
-Candy = {}
-function Candy.new(pos)
-  return {
-    x = pos[1],
-    y = pos[2],
-    worth = 1
-  }
+local class = require 'lib.middleclass'
+
+local Candy = class('Candy')
+
+function Candy:initialize(pos)
+  self.x = pos[1]
+  self.y = pos[2]
+  self.worth = 1
 end
 
-function Candy.draw(candy)
+function Candy:draw()
   love.graphics.setColor(255, 0, 255)
-  love.graphics.rectangle("fill", candy.x * GRID_SIZE, candy.y * GRID_SIZE, GRID_SIZE, GRID_SIZE)
+  love.graphics.rectangle("fill", self.x * GRID_SIZE, self.y * GRID_SIZE, GRID_SIZE, GRID_SIZE)
 end
+
+return Candy

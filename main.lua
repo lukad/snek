@@ -1,5 +1,5 @@
 local Player = require "player"
-require "candy"
+local Candy = require "candy"
 
 GRID_SIZE = 16
 WIDTH = love.graphics.getWidth()
@@ -7,7 +7,7 @@ HEIGHT = love.graphics.getHeight()
 WIDTH_GRID = WIDTH / GRID_SIZE
 HEIGHT_GRID = HEIGHT / GRID_SIZE
 keys = {}
-candys = {Candy.new({5,5})}
+candys = {Candy:new({5,5})}
 
 p = Player:new()
 
@@ -27,7 +27,7 @@ end
 
 function love.draw()
  for _, candy in ipairs(candys) do
-   Candy.draw(candy)
+   candy:draw()
  end
  p:draw(38, 139, 210)
  drawGrid()
@@ -56,7 +56,7 @@ function checkCollisions()
       table.remove(candys, i)
       local x = math.random(WIDTH_GRID)-1
       local y = math.random(HEIGHT_GRID)-1
-      table.insert(candys, Candy.new({x, y}))
+      table.insert(candys, Candy:new({x, y}))
       p:grow(candy.worth)
       return true
     end

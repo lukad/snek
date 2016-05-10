@@ -20,10 +20,10 @@ function Player:draw(r, g, b)
 end
 
 function Player:keypressed(key, _isrepeat)
-  if key == "left" and self.direction ~= "right" then self.direction = key end
-  if key == "right" and self.direction ~= "left" then self.direction = key end
-  if key == "up" and self.direction ~= "down" then self.direction = key end
-  if key == "down" and self.direction ~= "up" then self.direction = key end
+  if key == "left" and self.last_direction ~= "right" then self.direction = key end
+  if key == "right" and self.last_direction ~= "left" then self.direction = key end
+  if key == "up" and self.last_direction ~= "down" then self.direction = key end
+  if key == "down" and self.last_direction ~= "up" then self.direction = key end
 end
 
 function Player:update(dt)
@@ -33,6 +33,8 @@ function Player:update(dt)
   if self.direction == "down" then self.y = self.y + self.speed * dt end
 
   if math.floor(self.x) == self.points[1][1] and math.floor(self.y) == self.points[1][2] then return end
+
+  self.last_direction = self.direction
 
   if self.x >= WIDTH / GRID_SIZE then self.x = 0 + self.x % (WIDTH / GRID_SIZE) end
   if self.x < 0 then self.x = WIDTH / GRID_SIZE - self.x end

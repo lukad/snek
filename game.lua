@@ -9,12 +9,12 @@ HEIGHT = love.graphics.getHeight()
 WIDTH_GRID = WIDTH / GRID_SIZE
 HEIGHT_GRID = HEIGHT / GRID_SIZE
 
-
 function Game:enter()
   love.graphics.setBackgroundColor(253, 246, 227)
   Game.keys = {}
-  Game.candys = {Candy:new({5,5})}
   Game.p = Player:new()
+  Game.candys = {}
+  Game:add_candy()
 end
 
 function Game:draw_grid()
@@ -50,16 +50,20 @@ function Game:keypressed(key, isrepeat)
   Game.p:keypressed(key, isrepeat)
 end
 
+function Game:add_candy()
+  local x = love.math.random(WIDTH_GRID) - 1
+  local y = love.math.random(HEIGHT_GRID) - 1
+  table.insert(Game.candys, Candy:new({x, y}))
+end
+
 function Game:check_collisions()
   if not Game.p.alive then return end
 
   for i, candy in ipairs(Game.candys) do
     if Game.p.points[1][1] == candy.x and Game.p.points[1][2] == candy.y then
       table.remove(Game.candys, i)
-      local x = math.random(WIDTH_GRID) - 1
-      local y = math.random(HEIGHT_GRID) - 1
-      table.insert(Game.candys, Candy:new({x, y}))
       Game.p:grow(candy.worth)
+      Game:add_candy()
     end
   end
 

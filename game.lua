@@ -29,7 +29,7 @@ end
 
 function Game:draw_score()
   love.graphics.setColor(220, 50, 47)
-  love.graphics.print("Score: " .. Game.p:length() - 1, 0, 0)
+  love.graphics.print("Score: " .. (Game.p:length() - 5) * 100, 0, 0)
 end
 
 function Game:draw()

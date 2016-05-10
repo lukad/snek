@@ -19,6 +19,13 @@ function Player:draw(r, g, b)
   end
 end
 
+function Player:keypressed(key, _isrepeat)
+  if key == "left" and self.direction ~= "right" then self.direction = key end
+  if key == "right" and self.direction ~= "left" then self.direction = key end
+  if key == "up" and self.direction ~= "down" then self.direction = key end
+  if key == "down" and self.direction ~= "up" then self.direction = key end
+end
+
 function Player:update(dt)
   if self.direction == "right" then self.x = self.x + self.speed * dt end
   if self.direction == "left" then self.x = self.x - self.speed * dt end

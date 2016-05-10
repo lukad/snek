@@ -2,6 +2,9 @@ local class = require 'lib.middleclass'
 
 local Player = class('Player')
 
+Player.static.powerup_sound = love.audio.newSource('assets/powerup.wav', 'static')
+Player.static.explosion_sound = love.audio.newSource('assets/explosion.wav', 'static')
+
 function Player:initialize()
   self.alive = true
   self.x = 0
@@ -68,10 +71,12 @@ function Player:collides_with_self()
 end
 
 function Player:die()
+  love.audio.play(Player.static.explosion_sound)
   self.alive = false
 end
 
 function Player:grow(n)
+  love.audio.play(Player.static.powerup_sound)
   point = self.points[#self.points]
   for i = 1, n, 1 do
     table.insert(self.points, {point[1], point[2]})

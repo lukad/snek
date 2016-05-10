@@ -51,6 +51,8 @@ function Game:keypressed(key, isrepeat)
 end
 
 function Game:check_collisions()
+  if not Game.p.alive then return end
+
   for i, candy in ipairs(Game.candys) do
     if Game.p.points[1][1] == candy.x and Game.p.points[1][2] == candy.y then
       table.remove(Game.candys, i)

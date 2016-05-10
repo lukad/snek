@@ -3,9 +3,10 @@ local class = require 'lib.middleclass'
 local Player = class('Player')
 
 function Player:initialize()
+  self.alive = true
   self.x = 0
   self.y = 1
-  self.points = {{self.x, self.y}, {self.x, self.y}, {self.x, self.y}}
+  self.points = {{self.x, self.y}, {self.x - 1, self.y}, {self.x -2, self.y}, {self.x - 3, self.y}, {self.x - 4, self.y}}
   self.speed = 10
   self.direction = "right"
 end
@@ -27,6 +28,8 @@ function Player:keypressed(key, _isrepeat)
 end
 
 function Player:update(dt)
+  if not self.alive then return end
+
   if self.direction == "right" then self.x = self.x + self.speed * dt end
   if self.direction == "left" then self.x = self.x - self.speed * dt end
   if self.direction == "up" then self.y = self.y - self.speed * dt end
@@ -50,7 +53,20 @@ function Player:update(dt)
   self.points[1][2] = math.floor(self.y)
 end
 
--- Appends n items to the player
+function Player:collides_with_self()
+  for i = #self.points, 2, -1 do
+    if self.points[i][1] == self.points[1][1] and
+      self.points[i][2] == self.points[1][2]
+    then
+      return true
+    end
+  end
+end
+
+function Player:die()
+  self.alive = false
+end
+
 function Player:grow(n)
   point = self.points[#self.points]
   for i = 1, n, 1 do

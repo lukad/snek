@@ -17,7 +17,7 @@ function Game:enter()
   Game.p = Player:new()
 end
 
-function Game:drawGrid()
+function Game:draw_grid()
   love.graphics.setColor(238, 232, 213, 255);
   for x = GRID_SIZE, WIDTH, GRID_SIZE do
     love.graphics.line(x, 0, x, HEIGHT)
@@ -32,19 +32,19 @@ function Game:draw()
    candy:draw()
  end
  Game.p:draw(38, 139, 210)
- Game:drawGrid()
+ Game:draw_grid()
 end
 
 function Game:update(dt)
+  Game:check_collisions()
   Game.p:update(dt)
-  Game:checkCollisions()
 end
 
 function Game:keypressed(key, isrepeat)
   Game.p:keypressed(key, isrepeat)
 end
 
-function Game:checkCollisions()
+function Game:check_collisions()
   for i, candy in ipairs(Game.candys) do
     if Game.p.points[1][1] == candy.x and Game.p.points[1][2] == candy.y then
       table.remove(Game.candys, i)
@@ -52,8 +52,11 @@ function Game:checkCollisions()
       local y = math.random(HEIGHT_GRID) - 1
       table.insert(Game.candys, Candy:new({x, y}))
       Game.p:grow(candy.worth)
-      return true
     end
+  end
+
+  if Game.p:collides_with_self() then
+    Game.p:die()
   end
 end
 

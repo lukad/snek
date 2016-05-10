@@ -20,6 +20,10 @@ function Player:draw(r, g, b)
   end
 end
 
+function Player:length()
+  return #self.points
+end
+
 function Player:keypressed(key, _isrepeat)
   if key == "left" and self.last_direction ~= "right" then self.direction = key end
   if key == "right" and self.last_direction ~= "left" then self.direction = key end

@@ -27,12 +27,18 @@ function Game:draw_grid()
   end
 end
 
+function Game:draw_score()
+  love.graphics.setColor(220, 50, 47)
+  love.graphics.print("Score: " .. Game.p:length() - 1, 0, 0)
+end
+
 function Game:draw()
  for _, candy in ipairs(Game.candys) do
    candy:draw()
  end
  Game.p:draw(38, 139, 210)
  Game:draw_grid()
+ Game:draw_score()
 end
 
 function Game:update(dt)

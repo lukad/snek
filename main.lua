@@ -23,6 +23,7 @@ function love.keypressed(key)
   if key == '3' then toggle_effect("tint") end
   if key == '4' then toggle_effect("scanlines") end
   if key == '5' then toggle_effect("flickering") end
+  if key == '6' then toggle_effect("distortion") end
 end
 
 function toggle_effect(effect)

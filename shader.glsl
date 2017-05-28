@@ -13,21 +13,50 @@ uniform bool vignette_enabled = true;
 uniform bool tint_enabled = true;
 uniform bool scanlines_enabled = true;
 uniform bool flickering_enabled = true;
+uniform bool distortion_enabled = true;
 
-const vec2 r_offset = vec2(0.005, 0.0);
-const vec2 g_offset = vec2(0.0, 0.0);
-const vec2 b_offset = vec2(-0.005, 0.0);
+#define r_offset vec2(0.005, 0.0)
+#define g_offset vec2(0.0, 0.0)
+#define b_offset vec2(-0.005, 0.0)
 
-const float VIGNETTE_RADIUS = 0.75;
-const float VIGNETTE_SOFTNESS = 0.45;
+#define VIGNETTE_RADIUS 0.75
+#define VIGNETTE_SOFTNESS 0.45
+
+#define distortion 0.2
+#define cornersize 0.02
+#define cornersmooth 200
+#define aspect vec2(1.0, 0.75)
 
 float rand(vec2 co)
 {
     return fract(sin(dot(co.xy, vec2(12.0909, 78.233))) * 43758.5453);
 }
 
+vec2 radial_distortion(vec2 coord)
+{
+    vec2 cc = coord - vec2(0.5);
+    float dist = dot(cc, cc) * distortion;
+    vec2 foo = coord + cc * (1.0 - dist) * dist;
+    return foo;
+}
+
+float corner(vec2 coord)
+{
+  coord = (coord - vec2(0.5)) + vec2(0.5);
+  coord = min(coord, vec2(1.0) - coord) * aspect;
+  vec2 cdist = vec2(cornersize);
+  coord = (cdist - min(coord, cdist));
+  float dist = sqrt(dot(coord, coord));
+  return clamp((cdist.x - dist) * cornersmooth, 0.0, 1.0);
+}
+
 vec4 effect(vec4 color, Image texture, vec2 uv, vec2 screen_coords)
 {
+
+    if (distortion_enabled)
+    {
+        uv = radial_distortion(uv);
+    }
 
     vec4 col = Texel(texture, uv) * color;
 
@@ -48,7 +77,7 @@ vec4 effect(vec4 color, Image texture, vec2 uv, vec2 screen_coords)
     // tint
     if (tint_enabled)
     {
-        col *= vec4(0.7, 0.9, 1.0, 1.0);
+        col *= vec4(1.0, 1.1, 1.2, 1.0);
     }
 
     // scanlines
@@ -62,6 +91,8 @@ vec4 effect(vec4 color, Image texture, vec2 uv, vec2 screen_coords)
     {
         col *= 1.0 - 0.1 * rand(vec2(time, tan(time)));
     }
+
+    col.rgb *= corner(uv);
 
     return col;
 }

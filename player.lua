@@ -14,12 +14,16 @@ function Player:initialize()
   self.direction = "right"
 end
 
-function Player:draw(r, g, b)
-  love.graphics.setColor(r, g, b)
+function Player:draw()
+  love.graphics.setColor(255, 255, 255)
   for _, p in ipairs(self.points) do
     local x = math.floor(p[1])
     local y = math.floor(p[2])
-    love.graphics.rectangle("fill", x * GRID_SIZE, y * GRID_SIZE, GRID_SIZE, GRID_SIZE)
+    love.graphics.rectangle("fill",
+                            x * GRID_SIZE + 1,
+                            y * GRID_SIZE + 1,
+                            GRID_SIZE - 1,
+                            GRID_SIZE - 1)
   end
 end
 

@@ -3,14 +3,12 @@ local Candy = require "candy"
 
 local Game = {}
 
-GRID_SIZE = 16
-WIDTH = love.graphics.getWidth()
-HEIGHT = love.graphics.getHeight()
-WIDTH_GRID = WIDTH / GRID_SIZE
-HEIGHT_GRID = HEIGHT / GRID_SIZE
+function Game:init()
+  font = love.graphics.getFont()
+  font:setFilter("nearest", "nearest", 0)
+end
 
 function Game:enter()
-  love.graphics.setBackgroundColor(253, 246, 227)
   Game.keys = {}
   Game.p = Player:new()
   Game.candys = {}
@@ -18,7 +16,7 @@ function Game:enter()
 end
 
 function Game:draw_grid()
-  love.graphics.setColor(238, 232, 213, 255);
+  love.graphics.setColor(255, 255, 255, 50);
   for x = GRID_SIZE, WIDTH, GRID_SIZE do
     love.graphics.line(x, 0, x, HEIGHT)
   end
@@ -28,17 +26,17 @@ function Game:draw_grid()
 end
 
 function Game:draw_score()
-  love.graphics.setColor(220, 50, 47)
-  love.graphics.print("Score: " .. (Game.p:length() - 5) * 100, 0, 0)
+  love.graphics.setColor(255, 255, 255)
+  love.graphics.print("Score: " .. (Game.p:length() - 5) * 100, 0, 0, 0, 2, 2)
 end
 
-function Game:draw()
- for _, candy in ipairs(Game.candys) do
-   candy:draw()
- end
- Game.p:draw(38, 139, 210)
- Game:draw_grid()
- Game:draw_score()
+function Game:my_draw()
+  for _, candy in ipairs(Game.candys) do
+    candy:draw()
+  end
+  Game.p:draw(255, 255, 255)
+  Game:draw_grid()
+  -- Game:draw_score()
 end
 
 function Game:update(dt)

@@ -1,5 +1,5 @@
 local Gamestate = require('lib/hump/gamestate')
-local Game = require('game')
+local Menu = require('menu')
 
 GRID_SIZE = 16
 WIDTH = love.graphics.getWidth()
@@ -11,6 +11,7 @@ shader = {}
 effects = {}
 canvas = {}
 mesh = {}
+font = {}
 
 function love.keypressed(key)
   if key == 'escape' then
@@ -25,7 +26,12 @@ function love.keypressed(key)
 end
 
 function toggle_effect(effect)
-  state = not effects[effect]
+  state = effects[effect]
+  if state == nil then
+    state = false
+  else
+    state = not state
+  end
   effects[effect] = state
   shader:send(effect .. "_enabled", state)
 end
@@ -36,6 +42,7 @@ function love.draw()
   love.graphics.clear()
   love.graphics.setBlendMode("alpha")
   Gamestate.current():my_draw()
+
 
   love.graphics.setCanvas()
   love.graphics.setShader(shader)
@@ -51,5 +58,5 @@ function love.load()
   shader = love.graphics.newShader(shader_source)
 
   Gamestate.registerEvents()
-  Gamestate.switch(Game)
+  Gamestate.switch(Menu)
 end

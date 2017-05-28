@@ -3,11 +3,6 @@ local Candy = require "candy"
 
 local Game = {}
 
-function Game:init()
-  font = love.graphics.getFont()
-  font:setFilter("nearest", "nearest", 0)
-end
-
 function Game:enter()
   Game.keys = {}
   Game.p = Player:new()
@@ -25,18 +20,12 @@ function Game:draw_grid()
   end
 end
 
-function Game:draw_score()
-  love.graphics.setColor(255, 255, 255)
-  love.graphics.print("Score: " .. (Game.p:length() - 5) * 100, 0, 0, 0, 2, 2)
-end
-
 function Game:my_draw()
   for _, candy in ipairs(Game.candys) do
     candy:draw()
   end
   Game.p:draw(255, 255, 255)
   Game:draw_grid()
-  -- Game:draw_score()
 end
 
 function Game:update(dt)

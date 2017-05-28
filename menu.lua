@@ -1,5 +1,6 @@
 local Gamestate = require('lib/hump/gamestate')
 local Game = require('game')
+local util = require('util')
 local menu = {}
 
 function menu:init()
@@ -14,7 +15,9 @@ function menu:keypressed(key, _isrepeat)
 end
 
 function menu:my_draw()
-  love.graphics.setColor(255, 255, 255, 230)
+  util.draw_grid()
+
+  love.graphics.setColor(255, 255, 255, 150)
   love.graphics.setFont(menu.logo_font)
   love.graphics.printf(
     "SNEK",
@@ -25,7 +28,7 @@ function menu:my_draw()
   )
 
   love.graphics.setFont(menu.go_font)
-  love.graphics.setColor(255, 255, 255, 200)
+  love.graphics.setColor(255, 255, 255, 100)
   love.graphics.printf(
     "press space to play",
     WIDTH/2 - 400/2,

@@ -2,10 +2,10 @@ local class = require 'lib.middleclass'
 
 local Candy = class('Candy')
 
-function Candy:initialize(pos)
+function Candy:initialize(pos, worth)
   self.x = pos[1]
   self.y = pos[2]
-  self.worth = 1
+  self.worth = worth
 end
 
 function Candy:draw()

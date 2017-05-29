@@ -28,7 +28,7 @@ function menu:my_draw()
   )
 
   love.graphics.setFont(menu.go_font)
-  love.graphics.setColor(255, 255, 255, 100)
+  love.graphics.setColor(255, 255, 255, 120)
   love.graphics.printf(
     "press space to play",
     WIDTH/2 - 400/2,

@@ -10,7 +10,7 @@ function Player:initialize()
   self.x = 0
   self.y = 1
   self.points = {{self.x, self.y}, {self.x - 1, self.y}, {self.x -2, self.y}, {self.x - 3, self.y}, {self.x - 4, self.y}}
-  self.speed = 10
+  self.speed = 15
   self.direction = "right"
 end
 

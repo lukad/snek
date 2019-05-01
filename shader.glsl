@@ -80,7 +80,7 @@ vec4 effect(vec4 color, Image texture, vec2 uv, vec2 screen_coords)
     // flickering
     if (flickering_enabled)
     {
-        col *= 1.0 - 0.1 * rand(vec2(time, tan(time)));
+        col *= 1.0 - 0.05 * rand(vec2(time, tan(time)));
     }
 
     col.rgb *= corner(uv);

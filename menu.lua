@@ -17,7 +17,7 @@ end
 function menu:my_draw()
   util.draw_grid()
 
-  love.graphics.setColor(255, 255, 255, 150)
+  love.graphics.setColor(1, 1, 1, 0.6)
   love.graphics.setFont(menu.logo_font)
   love.graphics.printf(
     "SNEK",
@@ -28,7 +28,7 @@ function menu:my_draw()
   )
 
   love.graphics.setFont(menu.go_font)
-  love.graphics.setColor(255, 255, 255, 120)
+  love.graphics.setColor(1, 1, 1, 0.48)
   love.graphics.printf(
     "press space to play",
     WIDTH/2 - 400/2,

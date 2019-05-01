@@ -15,7 +15,7 @@ function Player:initialize()
 end
 
 function Player:draw()
-  love.graphics.setColor(255, 255, 255)
+  love.graphics.setColor(1, 1, 1)
   for _, p in ipairs(self.points) do
     local x = math.floor(p[1])
     local y = math.floor(p[2])

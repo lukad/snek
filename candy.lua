@@ -9,7 +9,7 @@ function Candy:initialize(pos, worth)
 end
 
 function Candy:draw()
-  love.graphics.setColor(255, 255, 255)
+  love.graphics.setColor(1, 1, 1)
   love.graphics.rectangle("fill", self.x * GRID_SIZE, self.y * GRID_SIZE, GRID_SIZE, GRID_SIZE)
 end
 

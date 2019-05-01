@@ -1,7 +1,7 @@
 local util = {}
 
 function util.draw_grid()
-  love.graphics.setColor(255, 255, 255, 50);
+  love.graphics.setColor(1, 1, 1, 1/5);
   for x = GRID_SIZE, WIDTH, GRID_SIZE do
     love.graphics.line(x, 0, x, HEIGHT)
   end

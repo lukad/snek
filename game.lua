@@ -24,12 +24,12 @@ function Game:my_draw()
     candy:draw()
   end
   self:draw_score()
-  self.p:draw(255, 255, 255)
+  self.p:draw(1, 1, 1)
   util.draw_grid()
 end
 
 function Game:draw_score()
-  love.graphics.setColor(255, 255, 255, 50)
+  love.graphics.setColor(1.0, 1.0, 1.0, 1/5)
   love.graphics.setFont(self.score_font)
   love.graphics.printf(
     math.floor(self.score),

@@ -51,9 +51,19 @@ function Game:keypressed(key, isrepeat)
 end
 
 function Game:add_candy()
-  local x = 1 + love.math.random(WIDTH_GRID - 3)
-  local y = 1 + love.math.random(HEIGHT_GRID - 3)
-  local candy = Candy:new({x, y}, 1)
+  local empty_cells = {}
+
+  for y = 0, GRID_HEIGHT - 1 do
+    for x = 0, GRID_WIDTH - 1 do
+      if not self.p:is_on_cell({x, y}) then
+        table.insert(empty_cells, {x, y})
+      end
+    end
+  end
+
+  local cell = empty_cells[math.random(#empty_cells)]
+  local candy = Candy:new(cell, 1)
+
   table.insert(self.candys, candy)
 end
 

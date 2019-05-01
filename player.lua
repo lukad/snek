@@ -27,6 +27,16 @@ function Player:draw()
   end
 end
 
+function Player:is_on_cell(cell)
+  for i, point in ipairs(self.points) do
+    if cell[1] == point[1] and cell[2] == point[2] then
+      return true
+    end
+  end
+
+  return false
+end
+
 function Player:length()
   return #self.points
 end

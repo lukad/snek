@@ -4,8 +4,8 @@ local Menu = require('menu')
 GRID_SIZE = 16
 WIDTH = love.graphics.getWidth()
 HEIGHT = love.graphics.getHeight()
-WIDTH_GRID = WIDTH / GRID_SIZE
-HEIGHT_GRID = HEIGHT / GRID_SIZE
+GRID_WIDTH = WIDTH / GRID_SIZE
+GRID_HEIGHT = HEIGHT / GRID_SIZE
 
 shader = {}
 effects = {}

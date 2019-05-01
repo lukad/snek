@@ -75,7 +75,7 @@ end
 
 function Game:eat_candy(candy)
   self.p:grow(candy.worth)
-  self.timer.tween(0.1, self, {score = self.score + candy.worth * 10})
+  self.timer.tween(0.15, self, {score = self.score + candy.worth * 10})
 end
 
 return Game

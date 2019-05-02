@@ -10,7 +10,7 @@ end
 
 function Candy:draw()
   love.graphics.setColor(1, 1, 1)
-  love.graphics.rectangle("fill", self.x * GRID_SIZE, self.y * GRID_SIZE, GRID_SIZE, GRID_SIZE)
+  love.graphics.rectangle("fill", self.x * GRID_SIZE + 1, self.y * GRID_SIZE + 1, GRID_SIZE - 1, GRID_SIZE - 1)
 end
 
 return Candy
